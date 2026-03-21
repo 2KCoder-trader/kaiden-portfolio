@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './App.css'
 
 function App() {
@@ -56,12 +57,7 @@ function App() {
         <p className="section-sub">Practical apps built to solve real problems, across whatever domain needs it.</p>
 
         <div className="project-grid">
-          <a
-            href="https://trade.dataflexlab.com"
-            className="project-card"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link to="/trail-stop-app" className="project-card">
             <div className="project-card-header">
               <div className="project-icon">📈</div>
               <span className="project-tag">Live</span>
@@ -78,7 +74,7 @@ function App() {
             <div className="project-arrow">
               Open App <span>→</span>
             </div>
-          </a>
+          </Link>
         </div>
       </section>
 
