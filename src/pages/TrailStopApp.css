@@ -23,6 +23,23 @@
   color: var(--text-h);
 }
 
+.tsa-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.tsa-nav-github {
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.tsa-nav-github:hover {
+  color: var(--text-h);
+}
+
 .tsa-nav-launch {
   font-size: 14px;
   font-weight: 600;
@@ -165,8 +182,34 @@
   transform: translateY(-1px);
 }
 
+.tsa-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tsa-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-h);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 14px 28px;
+  border-radius: 8px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.tsa-cta-secondary:hover {
+  border-color: var(--border-glow);
+  color: var(--accent);
+}
+
 /* Shared section styles */
 .tsa-demo,
+.tsa-how,
 .tsa-tech {
   padding: 100px 24px;
   border-top: 1px solid var(--border);
@@ -237,6 +280,52 @@
 .tsa-video-inner p {
   font-size: 14px;
   color: var(--text);
+}
+
+/* How it works steps */
+.tsa-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.tsa-step {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.tsa-step-num {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 1px;
+  min-width: 32px;
+  padding-top: 2px;
+}
+
+.tsa-step strong {
+  display: block;
+  color: var(--text-h);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.tsa-step p {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.tsa-step code {
+  background: var(--accent-glow);
+  border: 1px solid var(--border-glow);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 12px;
+  color: var(--accent);
+  font-family: monospace;
 }
 
 /* Tech grid */
@@ -325,6 +414,7 @@
   }
   .tsa-hero,
   .tsa-demo,
+  .tsa-how,
   .tsa-tech {
     padding: 64px 20px;
   }
