@@ -38,7 +38,7 @@ function App() {
 
       <div className="stats">
         <div className="stat">
-          <div className="stat-value">1<span>+</span></div>
+          <div className="stat-value">2<span>+</span></div>
           <div className="stat-label">Live Projects</div>
         </div>
         <div className="stat">
@@ -70,6 +70,25 @@ function App() {
               <span className="project-chip">Mobile Web</span>
               <span className="project-chip">Trading</span>
               <span className="project-chip">Real-time</span>
+            </div>
+            <div className="project-arrow">
+              Open App <span>→</span>
+            </div>
+          </Link>
+
+          <Link to="/aws-study" className="project-card">
+            <div className="project-card-header">
+              <div className="project-icon">☁️</div>
+              <span className="project-tag">Live</span>
+            </div>
+            <div className="project-name">AWS SAA-C03 Quiz</div>
+            <p className="project-desc">
+              A focused study tool for the AWS Solutions Architect Associate exam. Drill through 600+ real-style questions with a per-question timer, then get a Claude-powered explanation of every miss — keywords, reasoning, and an exam tip — streamed in line.
+            </p>
+            <div className="project-meta">
+              <span className="project-chip">AWS</span>
+              <span className="project-chip">Claude API</span>
+              <span className="project-chip">Cloudflare</span>
             </div>
             <div className="project-arrow">
               Open App <span>→</span>
