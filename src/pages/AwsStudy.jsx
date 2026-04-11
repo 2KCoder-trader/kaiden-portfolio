@@ -71,11 +71,14 @@ export default function AwsStudy() {
           <div className="aws-section-label">See it in action</div>
           <h2>Watch how it works</h2>
           <p className="aws-section-sub">A walkthrough of starting a quiz, answering a question, and reading the streamed explanation.</p>
-          <div className="aws-video-placeholder">
-            <div className="aws-video-inner">
-              <div className="aws-play-btn">▶</div>
-              <p>Demo video coming soon</p>
-            </div>
+          <div className="aws-video-wrap">
+            <video
+              className="aws-video"
+              src="/aws-study-demo.mp4"
+              controls
+              playsInline
+              preload="metadata"
+            />
           </div>
         </div>
       </section>

@@ -245,41 +245,20 @@
 }
 
 /* Demo video */
-.aws-video-placeholder {
+.aws-video-wrap {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.aws-video-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  color: var(--text);
-}
-
-.aws-play-btn {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--accent-glow);
-  border: 1px solid var(--border-glow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  color: var(--accent);
-}
-
-.aws-video-inner p {
-  font-size: 14px;
-  color: var(--text);
+.aws-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
 }
 
 /* How it works steps */
