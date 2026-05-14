@@ -118,6 +118,16 @@
   line-height: 1.7;
 }
 
+.hero-author {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: -20px;
+  margin-bottom: 36px;
+}
+
 .hero-cta {
   display: flex;
   gap: 16px;

@@ -1,3 +1,9 @@
+/* Root wrapper — display:contents so it stays out of the layout
+   but its inline CSS variables still cascade to children. */
+.pp-root {
+  display: contents;
+}
+
 /* Nav */
 .pp-nav {
   display: flex;
@@ -220,6 +226,10 @@
   margin: 0 auto;
 }
 
+.pp-demo .pp-section-inner {
+  max-width: 1280px;
+}
+
 .pp-section-label {
   font-size: 12px;
   font-weight: 600;
@@ -244,11 +254,32 @@
   max-width: 560px;
 }
 
-/* Demo: screenshot gallery */
+/* Demo: screenshot gallery — horizontal scroll strip */
 .pp-shots {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  --pp-shot-height: 640px;
+  display: flex;
+  flex-wrap: nowrap;
   gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  padding: 4px 4px 20px;
+  margin: 0 -4px;
+  scrollbar-color: var(--border-glow) transparent;
+}
+
+.pp-shots::-webkit-scrollbar {
+  height: 10px;
+}
+.pp-shots::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pp-shots::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+.pp-shots::-webkit-scrollbar-thumb:hover {
+  background: var(--border-glow);
 }
 
 .pp-shot {
@@ -258,6 +289,10 @@
   border-radius: 14px;
   overflow: hidden;
   transition: border-color 0.2s, transform 0.2s;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
 }
 
 .pp-shot:hover {
@@ -267,9 +302,11 @@
 
 .pp-shot img {
   display: block;
-  width: 100%;
-  height: auto;
+  height: var(--pp-shot-height);
+  width: auto;
+  max-width: none;
   background: #000;
+  object-fit: contain;
 }
 
 .pp-shot figcaption {
@@ -429,6 +466,9 @@
   .pp-how,
   .pp-tech {
     padding: 64px 20px;
+  }
+  .pp-shots {
+    --pp-shot-height: 420px;
   }
   .pp-footer {
     padding: 24px 20px;

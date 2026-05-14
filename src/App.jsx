@@ -7,7 +7,7 @@ function App() {
     <>
       <nav className="nav">
         <div className="nav-brand">
-          Data<span>Flex</span>Lab
+          Data<span>Flex</span> Lab
         </div>
         <ul className="nav-links">
           <li><a href="#projects">Projects</a></li>
@@ -21,8 +21,9 @@ function App() {
           <span>Close it fast.</span>
         </h1>
         <p>
-          Data Flex Lab is a growing collection of focused, purposeful apps — each one designed to be simple and light, built to solve a real problem, and shipped with intention.
+          Projects born from being too lazy to do the thing manually, or too bored not to build it.
         </p>
+        <p className="hero-author">By Kaiden Krenek</p>
         <div className="hero-cta">
           <a
             href="#projects"
@@ -42,14 +43,6 @@ function App() {
           <div className="stat-value">{projects.length}<span>+</span></div>
           <div className="stat-label">Live Projects</div>
         </div>
-        <div className="stat">
-          <div className="stat-value"><span>∞</span></div>
-          <div className="stat-label">Domains Explored</div>
-        </div>
-        <div className="stat">
-          <div className="stat-value"><span>∞</span></div>
-          <div className="stat-label">More Coming</div>
-        </div>
       </div>
 
       <section className="projects" id="projects">
@@ -59,7 +52,17 @@ function App() {
 
         <div className="project-grid">
           {projects.map(p => (
-            <Link key={p.slug} to={`/${p.slug}`} className="project-card">
+            <Link
+              key={p.slug}
+              to={`/${p.slug}`}
+              className="project-card"
+              style={p.theme ? {
+                '--accent': p.theme.accent,
+                '--accent-2': p.theme.accent2,
+                '--accent-glow': p.theme.accentGlow,
+                '--border-glow': p.theme.borderGlow,
+              } : undefined}
+            >
               <div className="project-card-header">
                 <div className="project-icon">{p.icon}</div>
                 {p.tag && <span className="project-tag">{p.tag}</span>}
@@ -72,7 +75,7 @@ function App() {
                 ))}
               </div>
               <div className="project-arrow">
-                Open App <span>→</span>
+                More Info <span>→</span>
               </div>
             </Link>
           ))}
@@ -80,8 +83,8 @@ function App() {
       </section>
 
       <footer className="footer">
-        <div className="footer-brand">Data<span>Flex</span>Lab</div>
-        <div className="footer-copy">© {new Date().getFullYear()} DataFlexLab. All rights reserved.</div>
+        <div className="footer-brand">Data<span>Flex</span> Lab</div>
+        <div className="footer-copy">© {new Date().getFullYear()} DataFlex Lab. All rights reserved.</div>
       </footer>
     </>
   )

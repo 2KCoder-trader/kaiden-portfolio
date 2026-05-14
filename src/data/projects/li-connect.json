@@ -1,0 +1,129 @@
+{
+  "slug": "li-connect",
+  "order": 3,
+  "icon": "🔗",
+  "name": "Connectify",
+  "tag": "Live",
+  "shortDesc": "Growing a LinkedIn network manually is mind-numbing. Open the grow page, scroll, eyeball mutuals, click, repeat. The interesting part (deciding who's worth connecting with) gets buried under the click work, and nobody wants to spend their evening doing it.",
+  "chips": ["Playwright", "Python", "Flask"],
+
+  "theme": {
+    "accent": "#0a66c2",
+    "accent2": "#378fe9",
+    "accentGlow": "rgba(10, 102, 194, 0.15)",
+    "borderGlow": "rgba(10, 102, 194, 0.35)"
+  },
+
+  "nav": {
+    "githubUrl": "https://github.com/2KCoder-trader/li-connect",
+    "launchUrl": "http://localhost:5000/?demo=1"
+  },
+
+  "hero": {
+    "badge": "Connectify",
+    "title": "Grow your network",
+    "titleHighlight": "while you sleep.",
+    "paragraphs": [
+      "Building a LinkedIn network the manual way is grindwork. Open the grow page, scroll, eyeball mutuals, click, repeat. The interesting part (deciding who's worth connecting with) gets buried under the click-work.",
+      "Connectify handles the click-work. A nightly Playwright run wakes the PC at 11pm, scrolls `linkedin.com/mynetwork/grow/`, and sends 20 to 25 invites to profiles with at least 10 mutual connections, paced with gaussian timing helpers so it reads like a human, not a bot. A local Flask dashboard surfaces run history, manual triggers, and a connection-growth chart over time."
+    ],
+    "points": [
+      {
+        "icon": "🌙",
+        "title": "Nightly, hands-off",
+        "desc": "Windows Task Scheduler wakes the PC at 23:00, the script jitters 0 to 30 minutes, runs the workflow, and puts the machine back to sleep. `SetSuspendState` only fires if the PC was woken by the scheduler."
+      },
+      {
+        "icon": "🧠",
+        "title": "Human-paced by design",
+        "desc": "All timing flows through `core/human.py`. Gaussian-distributed `pause`, `read`, `think`, and `after_action` delays, plus character-by-character typing with jittered intervals. Random batch sizes (20 to 25) and a 0 to 30 min startup jitter live for the same reason."
+      },
+      {
+        "icon": "📊",
+        "title": "Dashboard with growth chart",
+        "desc": "Flask app at `localhost:5000` reads `data/runs.json` and `data/connections.json` directly. Total connections, gained over 30 days, invites sent, conversion %, an inline SVG growth chart, and a run history table. Manual `Run now` and `Run --test` buttons shell out via `subprocess.Popen`."
+      }
+    ],
+    "ctas": [
+      { "label": "View on GitHub", "href": "https://github.com/2KCoder-trader/li-connect", "primary": true }
+    ]
+  },
+
+  "demo": {
+    "label": "Screenshot",
+    "title": "The dashboard",
+    "subtitle": "Demo mode at /?demo=1 shows placeholder data and inert run buttons. The real thing reads from data/runs.json and data/connections.json.",
+    "shotHeight": 760,
+    "screenshots": [
+      {
+        "src": "/screenshots/li-connect/01-dashboard.png",
+        "alt": "Connectify dashboard showing total connections, gained 30d, invites sent, conversion %, a connections-over-time line chart, and a history table",
+        "caption": "Top stats, manual Run buttons, last-run status, a connections-over-time chart, and the full run history. All served from a single-file Flask app reading JSON straight from disk."
+      }
+    ],
+    "placeholderText": "Screenshots coming soon"
+  },
+
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From wake-from-sleep to Telegram summary",
+    "subtitle": "One nightly pipeline, persistent Chromium profile, and append-only JSON state.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Task Scheduler fires at 23:00",
+        "desc": "Windows wakes the PC and invokes `bin/linkedin_grow_connect.py`, which delegates to `networking/linkedin/run_grow_connect.py`. The script sleeps a random 0 to 30 minutes so the actual send time scatters between 23:00 and 23:30, with no fixed daily fingerprint."
+      },
+      {
+        "num": "02",
+        "title": "Playwright sends invites the human way",
+        "desc": "Launches Chromium with `launch_persistent_context(.browser_profile)` so the login persists across runs, visits `/mynetwork/grow/`, scrolls until enough candidates with 10+ mutuals are visible, then clicks invite buttons one by one with gaussian-paced delays from `core/human.py`."
+      },
+      {
+        "num": "03",
+        "title": "Snapshot, log, notify, sleep",
+        "desc": "Visits `/mynetwork/` to snapshot the total connection count, appends a run record to `data/runs.json` and a `{ts, count}` entry to `data/connections.json`, posts a Telegram summary via `core/notifications.tg_send()`, and if the PC was woken by the scheduler, calls `SetSuspendState` to put it back to sleep."
+      }
+    ]
+  },
+
+  "tech": {
+    "label": "Under the hood",
+    "title": "How it was built",
+    "subtitle": "Playwright on Chromium, a single Flask file for the dashboard, and append-only JSON as the database.",
+    "categories": [
+      {
+        "category": "Automation",
+        "items": [
+          "Playwright (Chromium, non-headless) with a persistent `.browser_profile/` so login survives runs",
+          "Gaussian timing helpers in `core/human.py`. `pause`, `read`, `think`, `between_pages`, `after_action`",
+          "Selectors like `button[aria-label^=\"Invite \"][aria-label$=\" to connect\"]` and JS evaluator blocks for mutual-count parsing"
+        ]
+      },
+      {
+        "category": "Scheduling",
+        "items": [
+          "Windows Task Scheduler wakes the PC at 23:00 with wake-from-sleep enabled",
+          "In-script 0 to 30 min random delay. `SetSuspendState` back to sleep only if Event Log says the scheduler woke us",
+          "Alternate `scheduler.py` daemon for non-Windows setups (Mon 08:00 to 08:59 scrape, daily 17:00 to 17:59 connect)"
+        ]
+      },
+      {
+        "category": "Dashboard & State",
+        "items": [
+          "Single-file Flask app (`dashboard/app.py`) + one HTML template with inline SVG chart. No build step",
+          "Append-only `data/runs.json` and `data/connections.json`. JSON straight from disk, no database",
+          "Manual `Run now` / `Run --test` buttons via `subprocess.Popen`, stdout streamed to `data/last_run.log`"
+        ]
+      },
+      {
+        "category": "CI & Notifications",
+        "items": [
+          "GitHub Actions runs `python -m compileall` + `ruff check` (E9/F63/F7/F82) on every push and PR",
+          "Telegram summary after each run via `core/notifications.tg_send()`. Fire-and-forget, failures swallowed",
+          "Catches the failure mode that bit hardest. A syntax error the nightly job only discovers at 23:00"
+        ]
+      }
+    ]
+  }
+}

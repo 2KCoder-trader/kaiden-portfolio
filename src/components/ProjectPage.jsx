@@ -14,7 +14,7 @@ function renderInline(text) {
 function Nav({ nav }) {
   return (
     <nav className="pp-nav">
-      <Link to="/" className="pp-nav-back">← DataFlexLab</Link>
+      <Link to="/" className="pp-nav-back">← DataFlex Lab</Link>
       <div className="pp-nav-links">
         {nav?.githubUrl && (
           <a href={nav.githubUrl} className="pp-nav-github" target="_blank" rel="noopener noreferrer">
@@ -85,7 +85,10 @@ function Demo({ demo }) {
         {demo.title && <h2>{demo.title}</h2>}
         {demo.subtitle && <p className="pp-section-sub">{demo.subtitle}</p>}
         {shots.length > 0 ? (
-          <div className="pp-shots">
+          <div
+            className="pp-shots"
+            style={demo.shotHeight ? { '--pp-shot-height': typeof demo.shotHeight === 'number' ? `${demo.shotHeight}px` : demo.shotHeight } : undefined}
+          >
             {shots.map((shot, i) => (
               <figure key={i} className="pp-shot">
                 <img src={shot.src} alt={shot.alt || ''} loading="lazy" />
@@ -157,17 +160,23 @@ function Tech({ tech }) {
 
 export default function ProjectPage({ project }) {
   if (!project) return null
+  const themeStyle = project.theme ? {
+    '--accent': project.theme.accent,
+    '--accent-2': project.theme.accent2,
+    '--accent-glow': project.theme.accentGlow,
+    '--border-glow': project.theme.borderGlow,
+  } : undefined
   return (
-    <>
+    <div className="pp-root" style={themeStyle}>
       <Nav nav={project.nav} />
       <Hero hero={project.hero} />
       <Demo demo={project.demo} />
       <HowItWorks howItWorks={project.howItWorks} />
       <Tech tech={project.tech} />
       <footer className="pp-footer">
-        <Link to="/" className="pp-footer-brand">Data<span>Flex</span>Lab</Link>
-        <div className="pp-footer-copy">© {new Date().getFullYear()} DataFlexLab. All rights reserved.</div>
+        <Link to="/" className="pp-footer-brand">Data<span>Flex</span> Lab</Link>
+        <div className="pp-footer-copy">© {new Date().getFullYear()} DataFlex Lab. All rights reserved.</div>
       </footer>
-    </>
+    </div>
   )
 }

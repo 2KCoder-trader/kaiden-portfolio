@@ -4,8 +4,16 @@
   "icon": "🧪",
   "name": "My Project",
   "tag": "Live",
-  "shortDesc": "One-paragraph pitch shown on the homepage card. Keep it punchy — what does it do and why should anyone click?",
+  "shortDesc": "One-paragraph pitch shown on the homepage card. Focus on the problem, not the solution. What's broken, what's painful, what makes someone go 'yeah I've felt that'?",
   "chips": ["Chip One", "Chip Two", "Chip Three"],
+
+  "theme": {
+    "accent": "#38bdf8",
+    "accent2": "#818cf8",
+    "accentGlow": "rgba(56, 189, 248, 0.15)",
+    "borderGlow": "rgba(56, 189, 248, 0.35)"
+  },
+
 
   "nav": {
     "githubUrl": "https://github.com/your-org/your-repo",
@@ -29,7 +37,7 @@
       {
         "icon": "⚡",
         "title": "Second feature claim",
-        "desc": "Keep these to three or four items max — they're the highlight reel."
+        "desc": "Keep these to three or four items max. They're the highlight reel."
       }
     ],
     "ctas": [
@@ -43,7 +51,7 @@
     "title": "See it in action",
     "subtitle": "One-line description of what the gallery shows.",
     "screenshots": [
-      { "src": "/screenshots/my-project/01-home.png", "alt": "Home screen", "caption": "Optional caption — drop captions if the image speaks for itself." },
+      { "src": "/screenshots/my-project/01-home.png", "alt": "Home screen", "caption": "Optional caption. Drop captions if the image speaks for itself." },
       { "src": "/screenshots/my-project/02-detail.png", "alt": "Detail view", "caption": "Drop image files into public/screenshots/<slug>/ and reference them with an absolute path." }
     ],
     "placeholderText": "Screenshots coming soon"
@@ -56,7 +64,7 @@
     "steps": [
       { "num": "01", "title": "First step", "desc": "What the user does and what the app does in response. Backticks render as `code`." },
       { "num": "02", "title": "Second step", "desc": "Keep these focused on the user's experience, not internal architecture." },
-      { "num": "03", "title": "Third step", "desc": "End on the payoff — what the user walks away with." }
+      { "num": "03", "title": "Third step", "desc": "End on the payoff. What the user walks away with." }
     ]
   },
 

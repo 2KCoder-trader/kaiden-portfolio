@@ -4,8 +4,15 @@
   "icon": "📈",
   "name": "Trailing Stop App",
   "tag": "Live",
-  "shortDesc": "A mobile-first trading companion that takes the guesswork out of exit strategy. Set intelligent trailing stops, monitor your open positions in real time, and let the app protect your gains — so you can stay in winning trades longer without watching every tick.",
+  "shortDesc": "You're in a winning trade and don't know when to get out. Exit too early and you leave money on the table. Hold too long and you watch the gains evaporate. Every exit becomes a gut call you regret either way.",
   "chips": ["Mobile Web", "Trading", "Real-time"],
+
+  "theme": {
+    "accent": "#22c55e",
+    "accent2": "#4ade80",
+    "accentGlow": "rgba(34, 197, 94, 0.15)",
+    "borderGlow": "rgba(34, 197, 94, 0.35)"
+  },
 
   "nav": {
     "githubUrl": "https://github.com/2KCoder-trader/schwab-trailing-stops",
@@ -17,8 +24,8 @@
     "title": "Stop guessing when to exit.",
     "titleHighlight": "Let the market tell you.",
     "paragraphs": [
-      "Every trader knows the feeling — you're in a winning trade, but you don't know when to get out. Exit too early and you leave money on the table. Hold too long and you give it all back.",
-      "The Trailing Stop App connects directly to your Schwab brokerage account. It monitors your open positions, tracks the highest price since each order was entered, and shows you exactly how much profit is locked in — updated automatically, no charts required."
+      "Every trader knows the feeling. You're in a winning trade, but you don't know when to get out. Exit too early and you leave money on the table. Hold too long and you give it all back.",
+      "The Trailing Stop App connects directly to your Schwab brokerage account. It monitors your open positions, tracks the highest price since each order was entered, and shows you exactly how much profit is locked in, updated automatically, no charts required."
     ],
     "points": [
       {
@@ -29,12 +36,12 @@
       {
         "icon": "⚡",
         "title": "Bracket orders in one tap",
-        "desc": "The trade screen places a limit buy and a trailing stop sell together as a single triggered order — your exit is set the moment you enter."
+        "desc": "The trade screen places a limit buy and a trailing stop sell together as a single triggered order. Your exit is set the moment you enter."
       },
       {
         "icon": "🔐",
         "title": "Credentials never leave the server",
-        "desc": "A Cloudflare Worker handles the Schwab OAuth exchange. Your API secrets stay server-side — the browser only ever holds short-lived access tokens."
+        "desc": "A Cloudflare Worker handles the Schwab OAuth exchange. Your API secrets stay server-side. The browser only ever holds short-lived access tokens."
       }
     ],
     "ctas": [
@@ -51,12 +58,12 @@
       {
         "src": "/screenshots/trail-stop-app/02.png",
         "alt": "Trailing Stops portfolio screen showing AAPL, AMZN, GOOG and MSFT with market price, stop, floating P/L, and locked profit",
-        "caption": "Portfolio view — each position shows its trail gap, market and stop prices, and the profit locked in above cost basis."
+        "caption": "Portfolio view. Each position shows its trail gap, market and stop prices, and the profit locked in above cost basis."
       },
       {
         "src": "/screenshots/trail-stop-app/01.png",
         "alt": "Trading screen for AAPL with quantity, limit price, trail stop gap, and a Place Order button",
-        "caption": "Trading screen — set quantity, limit, and trail gap, then Place Order fires a limit BUY plus trailing stop SELL as a single bracket."
+        "caption": "Trading screen. Set quantity, limit, and trail gap, then Place Order fires a limit BUY plus trailing stop SELL as a single bracket."
       }
     ],
     "placeholderText": "Screenshots coming soon"
@@ -70,17 +77,17 @@
       {
         "num": "01",
         "title": "Connect with Schwab OAuth",
-        "desc": "Click \"Login with Schwab\" — the app fetches an auth URL from the Cloudflare Worker, redirects you to Schwab, and exchanges the returned code for an access token. The refresh token lasts 7 days; the app silently renews access tokens as they expire."
+        "desc": "Click \"Login with Schwab\". The app fetches an auth URL from the Cloudflare Worker, redirects you to Schwab, and exchanges the returned code for an access token. The refresh token lasts 7 days. The app silently renews access tokens as they expire."
       },
       {
         "num": "02",
         "title": "Portfolio dashboard loads your positions",
-        "desc": "The app polls your Schwab account every 60 seconds for open positions and any trailing stop orders with status `AWAITING_STOP_CONDITION`. For each matched position it fetches price history — 1-minute candles for new entries, up to daily candles for older ones — to find the highest high since entry."
+        "desc": "The app polls your Schwab account every 60 seconds for open positions and any trailing stop orders with status `AWAITING_STOP_CONDITION`. For each matched position it fetches price history (1-minute candles for new entries, up to daily candles for older ones) to find the highest high since entry."
       },
       {
         "num": "03",
         "title": "Stop price and locked profit update live",
-        "desc": "Each row shows your ticker and trail gap, the current market price and calculated stop (highestHigh − trailGap), and both your floating P&L and the profit locked in above cost basis. Price history refreshes every 10 minutes. If the API is unreachable, the app falls back to demo data automatically."
+        "desc": "Each row shows your ticker and trail gap, the current market price and calculated stop (highestHigh minus trailGap), and both your floating P&L and the profit locked in above cost basis. Price history refreshes every 10 minutes. If the API is unreachable, the app falls back to demo data automatically."
       }
     ]
   },
@@ -93,7 +100,7 @@
       {
         "category": "Frontend",
         "items": [
-          "Flutter & Dart — cross-platform (web, iOS, Android, desktop)",
+          "Flutter & Dart. Cross-platform (web, iOS, Android, desktop)",
           "5-tab navigation: Portfolio, Trading, History, Ranking, Settings",
           "Search, asset-type tabs, and per-position detail screens"
         ]
@@ -101,17 +108,17 @@
       {
         "category": "Data & Logic",
         "items": [
-          "Schwab REST API — positions, orders, quotes, price history",
-          "Adaptive candle resolution (1m → 5m → 30m → daily based on position age)",
-          "Bracket orders: limit BUY + trailing stop SELL as a single TRIGGER order"
+          "Schwab REST API. Positions, orders, quotes, price history",
+          "Adaptive candle resolution (1m to 5m to 30m to daily based on position age)",
+          "Bracket orders. Limit BUY + trailing stop SELL as a single TRIGGER order"
         ]
       },
       {
         "category": "Auth & Infrastructure",
         "items": [
-          "Schwab OAuth 2.0 via Cloudflare Worker proxy — secrets never in the browser",
+          "Schwab OAuth 2.0 via Cloudflare Worker proxy. Secrets never in the browser",
           "In-memory token storage with silent refresh",
-          "Flutter Web on Vercel — trade.dataflexlab.com"
+          "Flutter Web on Vercel at trade.dataflexlab.com"
         ]
       }
     ]
