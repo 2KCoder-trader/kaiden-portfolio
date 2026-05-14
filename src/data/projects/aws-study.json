@@ -1,0 +1,123 @@
+{
+  "slug": "aws-study",
+  "order": 2,
+  "icon": "☁️",
+  "name": "AWS SAA-C03 Quiz",
+  "tag": "Live",
+  "shortDesc": "A focused study tool for the AWS Solutions Architect Associate exam. Drill through 600+ real-style questions with a per-question timer, then get a Claude-powered explanation of every miss — keywords, reasoning, and an exam tip — streamed in line.",
+  "chips": ["AWS", "Claude API", "Cloudflare"],
+
+  "nav": {
+    "githubUrl": "https://github.com/2KCoder-trader/aws-study",
+    "launchUrl": "https://aws-study.dataflexlab.com"
+  },
+
+  "hero": {
+    "badge": "AWS SAA-C03 Quiz",
+    "title": "Drill the exam.",
+    "titleHighlight": "Understand every miss.",
+    "paragraphs": [
+      "Studying for the AWS Solutions Architect Associate is a slog — hundreds of questions, tricky wording, and answer keys that tell you what's right but never why.",
+      "This app pulls from a pool of 600+ real exam-style questions, lets you run a quiz of any size with a per-question timer, and after every miss it streams a Claude-powered explanation that breaks down the correct answer, the keywords you should have caught, and a one-line exam tip you can carry into test day."
+    ],
+    "points": [
+      {
+        "icon": "🎯",
+        "title": "600+ real-style questions",
+        "desc": "Single and multi-answer questions sampled randomly from the full pool, with a multi-answer badge so you know how many to pick."
+      },
+      {
+        "icon": "🤖",
+        "title": "AI explanations that actually teach",
+        "desc": "Every wrong answer streams a Claude explanation: why the right choice is right, the keywords that signaled it, and an exam tip — plus a follow-up box so you can keep asking."
+      },
+      {
+        "icon": "📊",
+        "title": "Track every attempt",
+        "desc": "Quiz history saves your score, percentage, duration, and the questions you saw — so you can spot weak topics over time instead of guessing."
+      }
+    ],
+    "ctas": [
+      { "label": "Try the App →", "href": "https://aws-study.dataflexlab.com", "primary": true },
+      { "label": "View on GitHub", "href": "https://github.com/2KCoder-trader/aws-study", "primary": false }
+    ]
+  },
+
+  "demo": {
+    "label": "Screenshots",
+    "title": "See it in action",
+    "subtitle": "Starting a quiz, answering a question, and reading the streamed explanation.",
+    "screenshots": [
+      {
+        "src": "/screenshots/aws-study/00-start.png",
+        "alt": "AWS SAA-03 Quiz start screen with questions-per-round selector",
+        "caption": "The start screen — pick a question count from the 652-question pool and go."
+      },
+      {
+        "src": "/screenshots/aws-study/01-quiz.png",
+        "alt": "SAA-C03 question with per-question timer — supports single to multi-answer questions",
+        "caption": "Supports single to multi-answer questions, with a per-question timer ring and a badge showing how many to pick."
+      },
+      {
+        "src": "/screenshots/aws-study/02-explanation.png",
+        "alt": "Claude's streamed explanation breaking down the correct answers after a miss",
+        "caption": "Claude's streamed explanation after a miss — correct answers in green, eliminated choice struck through, and a breakdown of why each option is right."
+      }
+    ]
+  },
+
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From start screen to streamed explanation",
+    "subtitle": "Three steps from picking a question count to a Claude tutor in the panel below your answer.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Pick a count and start",
+        "desc": "Choose how many questions you want, hit start, and the worker samples that many at random from `questions.json`. A progress bar and per-question timer ring track you as you go."
+      },
+      {
+        "num": "02",
+        "title": "Answer — single or multi",
+        "desc": "Single-answer questions submit instantly; multi-answer questions show a badge with the required count and only enable submit when you've picked that many. You can also right-click any choice to eliminate it visually while you think."
+      },
+      {
+        "num": "03",
+        "title": "Get a streamed explanation",
+        "desc": "After you submit, the app POSTs to `/api/explain`, which calls Claude with your question, your answer, and the correct answer. The response streams back token-by-token via SSE, with a follow-up input so you can keep the conversation going on anything you don't understand."
+      }
+    ]
+  },
+
+  "tech": {
+    "label": "Under the hood",
+    "title": "How it was built",
+    "subtitle": "Started as a Flask app, then collapsed into a single Cloudflare Worker so the whole thing serves from one URL.",
+    "categories": [
+      {
+        "category": "Frontend",
+        "items": [
+          "Single-file vanilla HTML, CSS, and JS — no framework, no build step",
+          "Per-question timer ring, progress bar, and start / quiz / result screens",
+          "Right-click eliminate, multi-answer badge, and inline streamed explanations"
+        ]
+      },
+      {
+        "category": "Backend",
+        "items": [
+          "Cloudflare Worker (`worker.js`) handles `/api/questions`, `/api/explain`, and history",
+          "Cloudflare KV stores quiz history — score, duration, percentage, and question list",
+          "Anthropic Claude API (`claude-opus-4-6`) called with SSE streaming proxied to the browser"
+        ]
+      },
+      {
+        "category": "Data & Migration",
+        "items": [
+          "600+ AWS SAA-C03 questions extracted from PDF into CSV, then JSON",
+          "Originally a Flask app with pandas + flask-limiter; rewritten as a Worker for single-URL hosting",
+          "Static assets and API served from the same Worker — no separate frontend deploy"
+        ]
+      }
+    ]
+  }
+}

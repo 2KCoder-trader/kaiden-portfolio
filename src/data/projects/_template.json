@@ -1,0 +1,86 @@
+{
+  "slug": "my-project",
+  "order": 99,
+  "icon": "🧪",
+  "name": "My Project",
+  "tag": "Live",
+  "shortDesc": "One-paragraph pitch shown on the homepage card. Keep it punchy — what does it do and why should anyone click?",
+  "chips": ["Chip One", "Chip Two", "Chip Three"],
+
+  "nav": {
+    "githubUrl": "https://github.com/your-org/your-repo",
+    "launchUrl": "https://your-app.example.com"
+  },
+
+  "hero": {
+    "badge": "My Project",
+    "title": "Headline that names the problem.",
+    "titleHighlight": "Punchline that names the fix.",
+    "paragraphs": [
+      "First paragraph: set the scene. What does the user feel, what's broken, what's the stakes?",
+      "Second paragraph: introduce the app. What does it do, in concrete terms?"
+    ],
+    "points": [
+      {
+        "icon": "🎯",
+        "title": "Bold feature claim",
+        "desc": "One or two sentences elaborating. Backticks turn into `code` styling."
+      },
+      {
+        "icon": "⚡",
+        "title": "Second feature claim",
+        "desc": "Keep these to three or four items max — they're the highlight reel."
+      }
+    ],
+    "ctas": [
+      { "label": "Try the App →", "href": "https://your-app.example.com", "primary": true },
+      { "label": "View on GitHub", "href": "https://github.com/your-org/your-repo", "primary": false }
+    ]
+  },
+
+  "demo": {
+    "label": "Screenshots",
+    "title": "See it in action",
+    "subtitle": "One-line description of what the gallery shows.",
+    "screenshots": [
+      { "src": "/screenshots/my-project/01-home.png", "alt": "Home screen", "caption": "Optional caption — drop captions if the image speaks for itself." },
+      { "src": "/screenshots/my-project/02-detail.png", "alt": "Detail view", "caption": "Drop image files into public/screenshots/<slug>/ and reference them with an absolute path." }
+    ],
+    "placeholderText": "Screenshots coming soon"
+  },
+
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From start to finish",
+    "subtitle": "Three steps from open to outcome.",
+    "steps": [
+      { "num": "01", "title": "First step", "desc": "What the user does and what the app does in response. Backticks render as `code`." },
+      { "num": "02", "title": "Second step", "desc": "Keep these focused on the user's experience, not internal architecture." },
+      { "num": "03", "title": "Third step", "desc": "End on the payoff — what the user walks away with." }
+    ]
+  },
+
+  "tech": {
+    "label": "Under the hood",
+    "title": "How it was built",
+    "subtitle": "One line on the architecture choice.",
+    "categories": [
+      {
+        "category": "Frontend",
+        "items": [
+          "Framework and language",
+          "Notable UI patterns",
+          "Anything that would surprise a reader"
+        ]
+      },
+      {
+        "category": "Backend",
+        "items": [
+          "Runtime and hosting",
+          "External APIs called",
+          "Data store, if any"
+        ]
+      }
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import projects from './data/projects.js'
 import './App.css'
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
           <span>Close it fast.</span>
         </h1>
         <p>
-          Data Flex Lab is a growing collection of focused, purposeful apps — each one built to solve a real problem, shipped with intention.
+          Data Flex Lab is a growing collection of focused, purposeful apps — each one designed to be simple and light, built to solve a real problem, and shipped with intention.
         </p>
         <div className="hero-cta">
           <a
@@ -38,7 +39,7 @@ function App() {
 
       <div className="stats">
         <div className="stat">
-          <div className="stat-value">2<span>+</span></div>
+          <div className="stat-value">{projects.length}<span>+</span></div>
           <div className="stat-label">Live Projects</div>
         </div>
         <div className="stat">
@@ -57,43 +58,24 @@ function App() {
         <p className="section-sub">Practical apps built to solve real problems, across whatever domain needs it.</p>
 
         <div className="project-grid">
-          <Link to="/trail-stop-app" className="project-card">
-            <div className="project-card-header">
-              <div className="project-icon">📈</div>
-              <span className="project-tag">Live</span>
-            </div>
-            <div className="project-name">Trailing Stop App</div>
-            <p className="project-desc">
-              A mobile-first trading companion that takes the guesswork out of exit strategy. Set intelligent trailing stops, monitor your open positions in real time, and let the app protect your gains — so you can stay in winning trades longer without watching every tick.
-            </p>
-            <div className="project-meta">
-              <span className="project-chip">Mobile Web</span>
-              <span className="project-chip">Trading</span>
-              <span className="project-chip">Real-time</span>
-            </div>
-            <div className="project-arrow">
-              Open App <span>→</span>
-            </div>
-          </Link>
-
-          <Link to="/aws-study" className="project-card">
-            <div className="project-card-header">
-              <div className="project-icon">☁️</div>
-              <span className="project-tag">Live</span>
-            </div>
-            <div className="project-name">AWS SAA-C03 Quiz</div>
-            <p className="project-desc">
-              A focused study tool for the AWS Solutions Architect Associate exam. Drill through 600+ real-style questions with a per-question timer, then get a Claude-powered explanation of every miss — keywords, reasoning, and an exam tip — streamed in line.
-            </p>
-            <div className="project-meta">
-              <span className="project-chip">AWS</span>
-              <span className="project-chip">Claude API</span>
-              <span className="project-chip">Cloudflare</span>
-            </div>
-            <div className="project-arrow">
-              Open App <span>→</span>
-            </div>
-          </Link>
+          {projects.map(p => (
+            <Link key={p.slug} to={`/${p.slug}`} className="project-card">
+              <div className="project-card-header">
+                <div className="project-icon">{p.icon}</div>
+                {p.tag && <span className="project-tag">{p.tag}</span>}
+              </div>
+              <div className="project-name">{p.name}</div>
+              <p className="project-desc">{p.shortDesc}</p>
+              <div className="project-meta">
+                {p.chips?.map(chip => (
+                  <span key={chip} className="project-chip">{chip}</span>
+                ))}
+              </div>
+              <div className="project-arrow">
+                Open App <span>→</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
