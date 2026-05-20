@@ -1,0 +1,147 @@
+{
+  "slug": "ports",
+  "order": 6,
+  "icon": "📈",
+  "name": "Ports",
+  "tag": "Live",
+  "shortDesc": "A platform where users invest in other creators' portfolios in exchange for a share of the profits. I led full-stack development across a PostgreSQL schema, a 20+ endpoint Spring Boot API with Bearer auth and encryption, and a React frontend built from Figma drafts, all live at invest-ports.com.",
+  "chips": ["React", "Spring Boot", "PostgreSQL"],
+
+  "theme": {
+    "accent": "#22c55e",
+    "accent2": "#06b6d4",
+    "accentGlow": "rgba(34, 197, 94, 0.15)",
+    "borderGlow": "rgba(34, 197, 94, 0.35)"
+  },
+
+  "nav": {
+    "githubUrl": "https://github.com/2KCoder-trader/ports-opensrc",
+    "launchUrl": "https://invest-ports.com/"
+  },
+
+  "hero": {
+    "badge": "Ports · Full Stack Developer, Risk Management · May 2024 to May 2025",
+    "title": "Invest in other people's",
+    "titleHighlight": "portfolios.",
+    "paragraphs": [
+      "Most investing apps are about your portfolio. Ports is about everyone else's. Creators publish their portfolios, and other users can back them with real capital in exchange for a share of the profits, a marketplace of strategies you can actually invest in, not just watch.",
+      "I led full-stack development as a Full Stack Developer on the Risk Management side of the platform, remote, from May 2024 to May 2025. Designed and built the PostgreSQL schema with relational tables and dynamic SQL for flexible analytics queries, owned the Spring Boot backend with 20+ REST endpoints behind Bearer-token auth and encryption, and translated Figma drafts into a clean React frontend deployed to invest-ports.com."
+    ],
+    "points": [
+      {
+        "icon": "💼",
+        "title": "Creator portfolios as the product",
+        "desc": "The core platform lets users invest in other creators' portfolios and share in the returns. Browse, evaluate, allocate, get paid out. The leaderboard isn't a vanity metric, it's a discovery surface for capital."
+      },
+      {
+        "icon": "🗄️",
+        "title": "PostgreSQL schema + dynamic SQL",
+        "desc": "Designed the relational schema covering users, creators, portfolios, holdings, allocations, and profit-share accounting. Built dynamic SQL on top so analytics queries can stay flexible and targeted without spawning a separate endpoint per cut."
+      },
+      {
+        "icon": "🛡️",
+        "title": "20+ endpoint Spring Boot API",
+        "desc": "Led backend development in Spring Boot. 20+ REST endpoints covering portfolio management, allocations, profit-share settlement, and analytics, all sitting behind Bearer-token auth with encryption for sensitive data."
+      },
+      {
+        "icon": "🎨",
+        "title": "Figma to live UI",
+        "desc": "Translated Figma drafts into a clean, responsive React frontend. Built the components, wired them to the API, and deployed to invest-ports.com, the production surface real users land on."
+      }
+    ],
+    "ctas": [
+      { "label": "Try Ports →", "href": "https://invest-ports.com/", "primary": true },
+      { "label": "View on GitHub", "href": "https://github.com/2KCoder-trader/ports-opensrc", "primary": false }
+    ]
+  },
+
+  "demo": {
+    "label": "Walkthrough",
+    "title": "Ports in motion",
+    "subtitle": "The same tutorial video new users see embedded in the in-app settings page.",
+    "video": {
+      "youtubeId": "Lown5XsendM",
+      "title": "Ports tutorial walkthrough"
+    }
+  },
+
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From signup to profit share",
+    "subtitle": "The investor's path through the platform.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Sign in and onboard",
+        "desc": "Google OAuth or email/password lands you on the Home dashboard. Choose whether you're publishing a portfolio of your own, investing in someone else's, or both."
+      },
+      {
+        "num": "02",
+        "title": "Browse creator portfolios",
+        "desc": "The Market view lists creators and their portfolios with live performance, holdings, and historical analytics, all served from the Spring Boot API over the dynamic-SQL analytics layer."
+      },
+      {
+        "num": "03",
+        "title": "Allocate capital",
+        "desc": "Back a portfolio you believe in. The platform records the allocation, the terms, and the profit-share split, then tracks the position through every price tick."
+      },
+      {
+        "num": "04",
+        "title": "Share in the profits",
+        "desc": "Returns are computed and split between creator and investors according to the recorded terms. The leaderboard surfaces who's actually working so capital flows toward the strategies that earn it."
+      }
+    ]
+  },
+
+  "tech": {
+    "label": "Under the hood",
+    "title": "How it's built",
+    "subtitle": "A React frontend, a Spring Boot API on PostgreSQL, and a Python data pipeline keeping the quotes fresh.",
+    "categories": [
+      {
+        "category": "Frontend",
+        "items": [
+          "React 18 + React Router v6 on Create React App (react-scripts + react-app-rewired with `customize-cra`)",
+          "Built from Figma drafts, deployed to invest-ports.com",
+          "MUI v6 + MUI X (DataGrid Pro, Charts, DatePickers), Joy UI, Tailwind, shadcn, Radix for the component layer",
+          "Chart.js + react-chartjs-2 + Igniteui-react-charts for portfolio and price charts, framer-motion + tsparticles for landing polish",
+          "Auth & hardening on the client: `@react-oauth/google`, jsonwebtoken, bcryptjs, crypto-js, react-secure-storage, reCAPTCHA, adblock detection, javascript-obfuscator"
+        ]
+      },
+      {
+        "category": "Backend (Spring Boot)",
+        "items": [
+          "Spring Boot 3.3.2 on Java 17, Maven (`com.zephyr.ports`)",
+          "20+ REST endpoints covering portfolios, allocations, profit-share settlement, and analytics",
+          "Bearer-token auth on the API layer with encryption for sensitive data handling",
+          "Spring Data JPA + Spring Security + JJWT for persistence and session security",
+          "Apache Commons Math for portfolio analytics calculations"
+        ]
+      },
+      {
+        "category": "Database (PostgreSQL)",
+        "items": [
+          "Relational schema spanning users, creators, portfolios, holdings, allocations, and profit-share accounting",
+          "Advanced dynamic SQL on top of the schema so analytics queries can stay flexible and targeted",
+          "PostgreSQL as the system of record for everything that matters: capital flows, position history, settlement"
+        ]
+      },
+      {
+        "category": "Data pipeline & AI",
+        "items": [
+          "Python scripts (`python_scripts/`) with `yfinance` pulling S&P 500 quotes on a schedule and writing into Postgres",
+          "Rotating broker-access-key updaters (`KeyUpdater.py`, SIM1/SIM2) for live + simulated feeds",
+          "`ai_scripts/chat_strat.py` powers an in-app strategy chat surface via OpenAI"
+        ]
+      },
+      {
+        "category": "Dev experience",
+        "items": [
+          "MSW (Mock Service Worker) so the frontend can run offline against a mocked API surface",
+          "Frontend and backend split into separate repos so the React and Spring sides iterate independently",
+          "Tutorial video embedded directly in the settings page so onboarding lives where users land first"
+        ]
+      }
+    ]
+  }
+}

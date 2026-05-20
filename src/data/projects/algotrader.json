@@ -1,0 +1,152 @@
+{
+  "slug": "algotrader",
+  "order": 7,
+  "icon": "🤖",
+  "name": "AlgoTrader",
+  "tag": "Lab",
+  "shortDesc": "A personal lab of ~25 trading strategies, trend-following, ML forecasting, classic chart patterns, mean reversion, options, news, and market-microstructure experiments, built directly against the TradeStation API with a hand-rolled backtester.",
+  "chips": ["Python", "TradeStation API", "scikit-learn"],
+
+  "theme": {
+    "accent": "#f59e0b",
+    "accent2": "#ef4444",
+    "accentGlow": "rgba(245, 158, 11, 0.15)",
+    "borderGlow": "rgba(245, 158, 11, 0.35)"
+  },
+
+  "nav": {
+    "githubUrl": "https://github.com/2KCoder-trader/AlgoTrader"
+  },
+
+  "hero": {
+    "badge": "AlgoTrader",
+    "title": "A personal lab",
+    "titleHighlight": "of trading algorithms.",
+    "paragraphs": [
+      "Reading about trading strategies is easy. Wiring one to a real broker, watching it eat slippage, and finding out it works completely differently on live data than on a clean backtest, that's where the actual learning happens. AlgoTrader is the repo where I do that.",
+      "It's a collection of ~25 standalone Python strategies built directly against the TradeStation REST API. No backtesting framework, no abstraction layer, each strategy is its own runnable script with its own entry/exit logic, OCO order management, and either a sim-account paper trade or a custom backtest harness behind it. The page below walks through every one, the active set, the YoyoMargin variants, the archive, and the data-collection tools."
+    ],
+    "points": [
+      {
+        "icon": "📈",
+        "title": "Trend-following on regression slope",
+        "desc": "`YoyoMargin.py` fits `LinearRegression` to the last 5 TSLA bars and goes long on positive slope, short on negative, with an OCO bracket (±$0.01 profit + trailing stop = bid-ask spread). The YMVariants folder tunes window length, profit target, and entry order type."
+      },
+      {
+        "icon": "🌲",
+        "title": "ML forecasting",
+        "desc": "`RandomForests.py` trains a 100-tree `RandomForestRegressor` on minute OHLC bars and predicts next-bar close. Offline only, a sanity check on whether predictive signal exists before wiring anything live."
+      },
+      {
+        "icon": "🕯️",
+        "title": "Classic chart patterns",
+        "desc": "`123Trading.py` runs the 1-2-3 reversal on MSFT 5-min bars (2% target, 3% trailing stop). `Engulfing.py` scans the NASDAQ/NYSE watchlist for engulfing candles. `TooHighSimulated.py` plays new-bar breakouts with a 2R profit target."
+      },
+      {
+        "icon": "⚡",
+        "title": "Market microstructure",
+        "desc": "`BidAskArbritage.py` streams TSLA quotes and tries to short at ask / cover at bid. `FlashShorting.py` loops short-then-cover 10 AAPL shares as a latency test. Not real edges, real lessons in what the API actually does."
+      }
+    ],
+    "ctas": [
+      { "label": "View on GitHub →", "href": "https://github.com/2KCoder-trader/AlgoTrader", "primary": true }
+    ]
+  },
+
+  "howItWorks": {
+    "label": "The workflow",
+    "title": "From idea to graveyard",
+    "subtitle": "Every strategy passes through the same loop. Most don't make it to live.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Write the strategy as a standalone script",
+        "desc": "One file. Entry rule, exit rule, position sizing, OCO order construction. No base class, no inheritance, copying a working pattern from another script is faster than refactoring shared infrastructure."
+      },
+      {
+        "num": "02",
+        "title": "Backtest with `Algo_BackTest.py`",
+        "desc": "Hand-rolled backtester over historical TradeStation OHLCV using `pandas`, `requests`, and `multiprocessing` to parallelize parameter sweeps. Strategies that can't survive synthetic data don't get a sim account."
+      },
+      {
+        "num": "03",
+        "title": "Paper-trade on the TradeStation sim",
+        "desc": "Survivors point at the sim REST endpoint (`SIM1145924M` for equities, `SIM1145924F` for futures) with live quotes and fake fills. `KeyUpdater.py` rotates OAuth tokens so long-running scripts don't die on token expiry."
+      },
+      {
+        "num": "04",
+        "title": "Review P&L, archive, repeat",
+        "desc": "`Algo_PL.py` summarizes results. The promising ones stay active; everything else moves to `Old Strategies/`. The archive is the point, failed experiments are evidence of the search, not waste."
+      }
+    ]
+  },
+
+  "tech": {
+    "label": "The strategy catalog",
+    "title": "Every strategy in the repo",
+    "subtitle": "Each line: file, symbol, entry rule, exit rule, mode (live/sim/backtest).",
+    "categories": [
+      {
+        "category": "Active, root level",
+        "items": [
+          "`YoyoMargin.py`, TSLA, **sim**. Fits `LinearRegression` to last 5 bars; positive slope → buy 100 limit at `round(mean(data),2)`, negative → sell short. Exit: OCO with ±$0.01 profit target + trailing stop sized to the bid-ask spread.",
+          "`RandomForests.py`, TSLA, **backtest**. Trains `RandomForestRegressor(n_estimators=100)` on minute OHLC, plots predicted vs actual close. Pure research, no order logic.",
+          "`123Trading.py`, MSFT 5-min bars, **sim**. Classic 1-2-3 reversal: short when `bar[0].High > bar[1 or 2].High` and `bar[1].High < bar[2].High`, mirrored for longs on lows. Exit: OCO limit at `bar[1].High − 2%`, 3% trailing stop.",
+          "`BidAskArbritage.py`, TSLA, **sim**. Streams quotes; 100-share `SellShort` limit at the streamed `ask`, then `BuyToCover` limit at the streamed `bid`. Sequential fills, no OCO, naive spread-capture.",
+          "`FlashShorting.py`, AAPL, **sim**. Tight loop: 10-share market `SellShort` immediately followed by 10-share `BuyToCover`, DAY tif. Latency/throughput probe rather than profit-seeking.",
+          "`NewsTrading.py`, RNAZ, **prototype**. Pulls `yf.Ticker('RNAZ').news`; the comments describe a premarket-gainer + news-catalyst long with a wide trailing stop, but the broker call was never wired in.",
+          "`RedLightGreenLight.py`, stub. File contains only `import requests`."
+        ]
+      },
+      {
+        "category": "YMVariants, YoyoMargin tunings",
+        "items": [
+          "`IncreasedLength.py`, Same LR/OCO setup as YoyoMargin but `barsback = 20` instead of 5 (slower trend filter). 100 shares, ±$0.01 profit, trailing-stop = bid-ask spread.",
+          "`IncreasedProfit.py`, TSLA LR entry, **sim**, 100 shares GTC. Profit-target widened to entry ± current bid-ask spread (vs $0.01); trailing stop = spread. Wider winners, same trigger.",
+          "`MarketBuy.py`, TSLA LR direction, **sim**, 2-bar regression window. Entry uses `OrderType = Market` (skips the limit-fill wait). Exit: OCO with ±$0.01 limit profit + `StopMarket` at entry ∓ bid-ask spread.",
+          "`TraillingProfits.py`, empty file (0 bytes). Placeholder for a variant that never landed."
+        ]
+      },
+      {
+        "category": "Old Strategies, archived experiments",
+        "items": [
+          "`2L1SMeanReversion.py`, CLX23.NYM crude-oil future, **sim** (`SIM1145924F`). Entry: market-buy 1 contract when `low_ma(len=1) < high_ma(len=2)`. Exit: `StopMarket` sell when the short MA crosses back above the long MA. 60-sec bar loop.",
+          "`Engulfing.py`, Dynamic NASDAQ/NYSE watchlist filtered to $1, $200, avg volume > 2M, low float, **sim**. Entry: bullish/bearish engulfing on 5-min bars, limit buy at candle close. Exit: OSO, profit at close ± 50% of candle range, stop at low of the last two candles.",
+          "`FlagPattern.py`, stub. Only `import requests` returned by the raw endpoint.",
+          "`ManualDayTraderv1.py`, Hardcoded AVTX, 500 shares, **sim**. Entry: market buy between 2 min 1 sec and 2.5 hr after open. Exit: bracket with hardcoded absolute prices, limit sell at $0.15, stop-limit at $0.11.",
+          "`ManualDayTraderv2.py`, User-input ticker, **sim**. Entry: market buy `floor(0.9 × buying_power / close)` shares. Exit: single GTC limit at `fill × 1.03` (+3%). No stop.",
+          "`MarginYoyo.py`, MSFT, **sim**. Entry: limit buy at prior close when `prev_close < curr_close ≤ high − $0.01` (uptick continuation), 1 share, 30-sec order timeout, avoids first/last 60 min. Exit: OCO bracket at `buy ± diff` (risk multiplier wired but never applied).",
+          "`MarginYoyov2.py`, MSFT 5-min bars, **sim**. Entry: volume-tape, BUY when `UpVolume > DownVolume × 1.1`, SellShort on the inverse, 1 share limit. Exit: profit at `entry + diff`, stop at `entry + diff / 0.01`. 30-sec entry timeout, flatten 3 min before close.",
+          "`Mean Reversion.py`, MSFT 1-min bars, **backtest**. Grid-searches `short_min, long_min ∈ [1,30]` plus a `flip` flag over the past month; scores MA-crossover P/L in parallel via `multiprocessing`.",
+          "`Mean Reversion Copy.py`, CLU23.NYM crude oil, **backtest**. Short window 5, long window 20, 1-min bars, 1-month lookback. Buys when `mean(short_ma) < mean(long_ma)`, momentum-style on the bearish crossover.",
+          "`Mean Reversion Multiple Markets.py`, CLV23.NYM, EURUSD=X, BTC-USD, **backtest**. 1/2 short/long MA crossover scan over 5 days of 1-min bars; long when `short_ma < long_ma`, flat when above.",
+          "`Option Strategy.py`, NU equity options, **sim**. Fridays only, 3:55, 4:00 PM ET, sells-to-open contracts within 20 strikes of spot where `ProbabilityOTM > 0.9` and `Bid ≥ $0.01`. No exit, held to expiry (far-OTM premium collection).",
+          "`TooHighBackTest.py`, AAPL 1-min bars, **backtest**, 9:30, 12:00 ET, 29 days. Entry: new-high breakout when current high > prior high and `close − open > $0.01`, buy at next-bar open. Exit: 1:1 R/R bracket, profit at `buy + (buy − stop)`, stop at signal-candle low.",
+          "`TooHighSimulated.py`, MSFT 1-min bars, **sim**, 3-bar lookback. Entry: market buy 1 share when `bar[0].High ≥ bar[1].High`, only 2 min, 2.5 hr after open. Exit: 2R profit limit + `StopMarket` at the indicator's stop level."
+        ]
+      },
+      {
+        "category": "Symbol Tracker, data collectors",
+        "items": [
+          "`Stock Tracker v1.py`, Pulls the full NASDAQ symbol list, multiprocesses through each, fetches 1-min bars, prints tickers whose volume doubled period-over-period and trade above their 20-period SMA. Email alert wired but commented.",
+          "`Stock Tracker v2.py`, v1 plus a low-float filter (`floatShares < 100M`), and actually sends the email instead of just printing.",
+          "`Stock Tracker v3.py`, NASDAQ + NYSE, price < $20, float < 100M, volume activity, *and* requires a Yahoo news item before 9:30 AM with ≤ 2 related tickers, premarket gap-and-news screener.",
+          "`Stock Tracker v4.py`, Float < 100M, price < $50, 3 days of pre/post-market minute data. Computes relative volume vs 10-day average and gap = `(price − mean_100) / price × 100`, ranks top 20 by RVOL in a live table.",
+          "`Option Movement.py`, SPY range profiler. Loads cached daily OHLCV CSV, computes `(open − close) / open` percent moves over 30 days, then the 50th, 90th percentiles to bound expected daily range around a strike.",
+          "`Option Movementv2.py`, SPY volatility profiler. Same CSV, but uses `max(|open − high|, |open − low|)` as the daily-move metric and reports the full 0, 100 percentile distribution to feed strike/range selection."
+        ]
+      },
+      {
+        "category": "Backtest, sim, and broker plumbing",
+        "items": [
+          "`Algo_BackTest.py`, custom backtester over TradeStation OHLCV using `pandas`, `requests`, and `multiprocessing` for parameter sweeps. No Backtrader / Backtesting.py, hand-rolled.",
+          "`Algo_Simulator.py` and `Algo - SimulatorRFR.py`, generic strategy and RF-regressor simulators.",
+          "`Algo_PL.py`, P&L harness for reviewing runs across sweeps.",
+          "`KeyUpdater.py` + `access_token.csv`, rotating TradeStation OAuth tokens so long-lived scripts survive token expiry.",
+          "`File Processing/Dict_to_Csv.py`, helpers for normalizing run output into CSV.",
+          "`Old Strategies/Old Algo/`, earlier full-stack with `Algo-Live`, `AlgoSimulated`, `Idle`, `main`, and an `Accounts/` module (`Accounts.py`, `AccountsSim.py`, `accounts.csv`)."
+        ]
+      }
+    ]
+  }
+}

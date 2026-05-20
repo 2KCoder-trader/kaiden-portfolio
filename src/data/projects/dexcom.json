@@ -1,0 +1,95 @@
+{
+  "slug": "dexcom",
+  "order": 8,
+  "icon": "🛡️",
+  "name": "MCP Security Chatbot",
+  "tag": "Internship",
+  "shortDesc": "Summer 2025 internship at Dexcom: built an LLM agent that triages cloud vulnerabilities, prioritizes risk, and recommends remediations, fronted by a secure multi-agent chatbot wired into the security stack and GitHub. Implementation details are under NDA, this page covers what's safe to share.",
+  "chips": ["Python", "Google ADK", "Cloud Run"],
+
+  "theme": {
+    "accent": "#14b8a6",
+    "accent2": "#6366f1",
+    "accentGlow": "rgba(20, 184, 166, 0.15)",
+    "borderGlow": "rgba(20, 184, 166, 0.35)"
+  },
+
+  "nav": {},
+
+  "hero": {
+    "badge": "Dexcom · Internship · May, Aug 2025",
+    "title": "An LLM agent that triages",
+    "titleHighlight": "cloud vulnerabilities.",
+    "paragraphs": [
+      "Security teams at a regulated medical-device company like Dexcom drown in vulnerability findings. Scanners across the cloud surface hundreds of CVEs a week, and the work that actually matters, figuring out which ones are real, which ones are exploitable in *this* environment, and what to do about them, gets buried under the volume.",
+      "As an ML/AI + Cybersecurity Engineering intern (San Diego, summer 2025), I led the build of an LLM agent workflow that triages findings, prioritizes risk in context, and generates remediation recommendations. The agent is fronted by a multi-agent chatbot that security engineers actually talk to, hosted on Google Cloud Run, locked behind a private domain inside the corporate network, and wired into the surrounding tools via a custom MCP integration.",
+      "Specifics are under NDA. The page below sticks to what's already on my résumé and what's safe to say publicly."
+    ],
+    "points": [
+      {
+        "icon": "🧠",
+        "title": "LLM agent workflow for triage",
+        "desc": "Led the design of an agent that ingests vulnerability findings, ranks them by contextual risk (not just CVSS), and drafts remediation recommendations engineers can act on. Built on Google's Agent Development Kit (ADK)."
+      },
+      {
+        "icon": "☁️",
+        "title": "Cloud Run + VPC + load balancer",
+        "desc": "Architected and deployed multiple Cloud Run services over a VPC, exposing a private domain behind a load balancer. The chatbot stays inside the corporate network, no public surface."
+      },
+      {
+        "icon": "🔌",
+        "title": "Custom MCP integration",
+        "desc": "Built a Model Context Protocol integration giving the agent tool access into GitHub and other internal systems. Lets the chatbot pull repo context, open issues, and chain workflow steps without humans copy-pasting between tabs."
+      },
+      {
+        "icon": "🚢",
+        "title": "Faster patch delivery via CI/CD",
+        "desc": "Spearheaded CI/CD redeployments with GitHub Actions and Kubernetes so patched containers ship faster, shrinking the window of production exposure between a fix landing in main and running in prod."
+      }
+    ],
+    "ctas": []
+  },
+
+  "tech": {
+    "label": "Public stack",
+    "title": "What I can name",
+    "subtitle": "Languages, services, and frameworks from the résumé bullet, implementation details stay under NDA.",
+    "categories": [
+      {
+        "category": "Agent",
+        "items": [
+          "Python as the implementation language",
+          "Google Agent Development Kit (ADK) as the agent framework",
+          "Custom Model Context Protocol (MCP) integration for GitHub and other internal tools",
+          "Multi-agent chatbot interface as the human-facing surface"
+        ]
+      },
+      {
+        "category": "Hosting & network",
+        "items": [
+          "Google Cloud Run for the full-stack services",
+          "VPC-internal routing with a load balancer fronting a private domain",
+          "Kubernetes in the deployment path for patched containers",
+          "No public surface, access scoped to the corporate network"
+        ]
+      },
+      {
+        "category": "Delivery",
+        "items": [
+          "GitHub Actions for CI/CD redeployments",
+          "Container-based rollouts to shorten patch-to-prod latency",
+          "Tooling owned end-to-end: agent code, infra, deploy pipeline"
+        ]
+      },
+      {
+        "category": "What's not on this page",
+        "items": [
+          "Internal architecture diagrams, prompts, and threat models",
+          "Names of specific security tools the agent integrates with",
+          "Metrics on triage volume, accuracy, or coverage",
+          "Anything else covered by the NDA, happy to discuss what's appropriate in an interview"
+        ]
+      }
+    ]
+  }
+}

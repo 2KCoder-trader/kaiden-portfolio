@@ -1,0 +1,137 @@
+{
+  "slug": "polaris",
+  "order": 5,
+  "icon": "⭐",
+  "name": "Polaris",
+  "tag": "Personal",
+  "shortDesc": "Productivity tools track tasks. They don't actually push you to do them. Polaris is a Discord-based personal assistant that manages a task list, watches the calendar, and runs check-in timers, so the friction of staying on plan stops being yours to carry.",
+  "chips": ["Python", "Google ADK", "Discord"],
+
+  "theme": {
+    "accent": "#7dd3fc",
+    "accent2": "#a78bfa",
+    "accentGlow": "rgba(125, 211, 252, 0.15)",
+    "borderGlow": "rgba(125, 211, 252, 0.35)"
+  },
+
+  "nav": {
+    "githubUrl": "https://github.com/2KCoder-trader/polaris-opensrc"
+  },
+
+  "demo": {
+    "label": "In Discord",
+    "title": "Talking to Polaris",
+    "subtitle": "The Task Master agent answering a status query in the #task-list channel, today's events from Calendar, then the remaining task list with nested IDs.",
+    "screenshots": [
+      {
+        "src": "/screenshots/polaris/01-discord.png",
+        "alt": "Discord channel showing the Task Master agent responding to a status query with today's calendar events and the remaining task list",
+        "caption": "Prompt: \"Tell me anything interesting you are tracking from the task list.\" The agent reads calendar + task list, surfaces today's events, and lists remaining tasks with their ID paths."
+      }
+    ]
+  },
+
+  "hero": {
+    "badge": "Polaris",
+    "title": "A personal AI assistant",
+    "titleHighlight": "that actually keeps you on task.",
+    "paragraphs": [
+      "Most productivity apps are passive. You open them, write the task down, and then it's on you to remember, prioritize, and start. The hard part, the part that breaks days, isn't capture, it's follow-through. Polaris is built around that failure mode.",
+      "Polaris is a Discord bot fronting a pair of Google ADK agents: a `Task Master` that owns the task list, calendar, projects, and email, and a `Lock In` agent that sets check-in timers and chases me through the day. Morning and night routines, 30-minute productivity check-ins, upcoming-event nudges, and break tracking all run as structured conversation flows over Discord."
+    ],
+    "points": [
+      {
+        "icon": "🤖",
+        "title": "Two agents, one chat",
+        "desc": "`Task Master` handles add/update/complete across a nested task list (ID paths like `[12.34]`), projects, and Google Calendar. `Lock In` runs the day, wake-up routine, check-ins, break limits, night routine, sleep mode."
+      },
+      {
+        "icon": "⏰",
+        "title": "Timers that close the loop",
+        "desc": "Every check-in sets a follow-up timer. Made progress? 30 more minutes. Stuck? 15-minute redirect. Event coming up? 5-minute prep ping. The agent's job is to come back, not to be remembered."
+      },
+      {
+        "icon": "📅",
+        "title": "Calendar + Gmail in the loop",
+        "desc": "Reads today's and tomorrow's calendar events, summarizes the inbox, and sends a morning briefing by email. Recurring routines are pulled from a Morning Routine calendar event so the source of truth stays in one place."
+      },
+      {
+        "icon": "📱",
+        "title": "Hooks into the physical world",
+        "desc": "Wakes the PC on a schedule, drives Google Voice for SMS, takes desktop screenshots for monitoring, and puts the machine back to sleep when the day is over. The assistant lives outside the chat window."
+      }
+    ],
+    "ctas": [
+      { "label": "View on GitHub →", "href": "https://github.com/2KCoder-trader/polaris-opensrc", "primary": true }
+    ]
+  },
+
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From wake-up briefing to sleep mode",
+    "subtitle": "A day on Polaris, end to end.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Morning briefing",
+        "desc": "On wake, `Task Master` purges past-due repetitive tasks, seeds today's morning + night routine and any weekly recurring tasks, then emails a summary of today's events, tomorrow's non-recurring events, and the live task list."
+      },
+      {
+        "num": "02",
+        "title": "Lock In runs the day",
+        "desc": "`Lock In` opens a Discord check-in, confirms morning routine completion, and sets a 30-minute timer. On each fire it checks for upcoming events within 45 minutes, asks for measurable progress, praises forward motion, or redirects with a 15-minute micro-task."
+      },
+      {
+        "num": "03",
+        "title": "Tasks change in chat",
+        "desc": "Add, modify, complete, or cancel by talking. Tasks are addressed by ID path so nested subtasks (`[20.1]`, `[20.2]`) and project tasks (`[Project Alpha - 101]`) resolve unambiguously. Fuzzy-match falls back to title with a confirm prompt."
+      },
+      {
+        "num": "04",
+        "title": "Wind down",
+        "desc": "After 10pm `Lock In` walks through the night routine, then on confirmation sets sleep-mode (-1), which on Windows means actually putting the PC to sleep via a subprocess that calls into `window_functions.py`."
+      }
+    ]
+  },
+
+  "tech": {
+    "label": "Under the hood",
+    "title": "How it's built",
+    "subtitle": "Google ADK agents over Discord, with Google Workspace as the system of record.",
+    "categories": [
+      {
+        "category": "Agents",
+        "items": [
+          "Google ADK (`google.adk.agents.Agent`) with `PlanReActPlanner` for Gemini 2.0 models",
+          "`InMemorySessionService` per agent, explicitly chose this over memory service to keep token counts bounded",
+          "Instructions stored as plain `.txt` files so the agent can modify its own prompt via a tool"
+        ]
+      },
+      {
+        "category": "Interface",
+        "items": [
+          "`discord.py` client with message-content intent for a single private channel",
+          "Threaded `schedule` loop for cron-style triggers (wake-up briefing, periodic prompts)",
+          "Webhook layer so tools can push messages back into the chat asynchronously"
+        ]
+      },
+      {
+        "category": "Tools the agents can call",
+        "items": [
+          "Tasks: `add_task`, `read_task_list`, `update_task`, `cancel_task`, `complete_task` over a nested JSON list with ID paths",
+          "Calendar + Gmail: `get_events_on_date`, `create_single_event`, `delete_event`, `send_email` via Google API client",
+          "Projects: `create_project`, `add_task_to_project`, `list_project_tasks`, `modify_task_in_project`",
+          "OS control: `CancellableTimer` for check-ins, desktop screenshot capture, Google Voice SMS automation, wake/sleep via `subprocess` + `window_functions.py`"
+        ]
+      },
+      {
+        "category": "State",
+        "items": [
+          "`task_list.json`, `projects.json`, `repetitive_task_source.txt` on disk, no database",
+          "OAuth tokens (`token_*.json`) per Google account, refreshable via `force_create_token`",
+          "Per-agent instruction files editable at runtime, agent reconstructed in place"
+        ]
+      }
+    ]
+  }
+}

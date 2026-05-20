@@ -3,7 +3,6 @@
   "order": 1,
   "icon": "📈",
   "name": "Trailing Stop App",
-  "tag": "Live",
   "shortDesc": "You're in a winning trade and don't know when to get out. Exit too early and you leave money on the table. Hold too long and you watch the gains evaporate. Every exit becomes a gut call you regret either way.",
   "chips": ["Mobile Web", "Trading", "Real-time"],
 

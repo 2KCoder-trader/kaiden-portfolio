@@ -1,0 +1,98 @@
+{
+  "slug": "danielle-legal",
+  "order": 4,
+  "icon": "⚖️",
+  "name": "Danielle",
+  "tag": "Contributor",
+  "shortDesc": "Manual contract redlining is slow, expensive, and the bottleneck nobody on a legal team actually enjoys. Danielle turns it into an email round-trip: CC the assistant on a contract and get a marked-up draft back in minutes.",
+  "chips": ["Next.js", "TypeScript", "AI"],
+
+  "theme": {
+    "accent": "#d4a574",
+    "accent2": "#b08454",
+    "accentGlow": "rgba(212, 165, 116, 0.15)",
+    "borderGlow": "rgba(212, 165, 116, 0.35)"
+  },
+
+  "nav": {
+    "launchUrl": "https://danielle.legal/"
+  },
+
+  "hero": {
+    "badge": "Danielle · Contribution",
+    "title": "Contract review that takes minutes,",
+    "titleHighlight": "not days.",
+    "paragraphs": [
+      "Reviewing contracts is one of those jobs that's important, repetitive, and disproportionately expensive. In-house counsel and legal-ops teams burn hours per agreement turning NDAs, MSAs, and services contracts into something safe to sign, and the actual judgment work gets buried under reading and re-reading boilerplate.",
+      "Danielle is an AI contract assistant that compresses that loop. You CC `danielle@danielle.legal` on an email with a contract attached, and within minutes you get back a redlined draft with inline suggestions and risk commentary, flagging things like broad liability carve-outs, vague payment terms, or clauses that violate your company's playbook. No new portal, no plugin, no workflow change.",
+      "I contributed to the Danielle codebase. This page exists to point at the live product and explain what it does, the work itself lives in the team's repos."
+    ],
+    "points": [
+      {
+        "icon": "📧",
+        "title": "Email is the interface",
+        "desc": "No tool to learn. Forward or CC a contract the way you already do, and the redline lands back in your inbox. The workflow your team already runs becomes the workflow."
+      },
+      {
+        "icon": "⚡",
+        "title": "Minutes, not days",
+        "desc": "Danielle claims up to an 80% reduction in review cycle time. The first pass, the part that's mostly pattern-matching against playbooks and prior deals, stops being the bottleneck."
+      },
+      {
+        "icon": "📚",
+        "title": "Your playbook, enforced",
+        "desc": "The assistant reviews against your company's positions, not a generic checklist. Fallback language, hard-stops, and risk thresholds get applied consistently across every contract, every reviewer."
+      }
+    ],
+    "ctas": [
+      { "label": "Visit danielle.legal →", "href": "https://danielle.legal/", "primary": true }
+    ]
+  },
+
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From inbox to redline",
+    "subtitle": "Three steps, zero new software for the user.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Send the contract",
+        "desc": "CC `danielle@danielle.legal` on an email with the contract attached, DOCX or PDF. No upload portal, no integration to install."
+      },
+      {
+        "num": "02",
+        "title": "AI review against your playbook",
+        "desc": "Danielle parses the document, runs clause-level analysis against your company's positions and risk tolerances, and generates tracked-changes plus inline comments explaining each suggestion."
+      },
+      {
+        "num": "03",
+        "title": "Redline back in your inbox",
+        "desc": "Minutes later you get a marked-up draft with rationale. Counsel does the judgment work, accept, reject, negotiate, instead of the reading work."
+      }
+    ]
+  },
+
+  "tech": {
+    "label": "Under the hood",
+    "title": "What the product is built on",
+    "subtitle": "A modern web app over an email-ingestion + LLM analysis pipeline.",
+    "categories": [
+      {
+        "category": "Frontend",
+        "items": [
+          "Next.js (App Router) with React Server Components",
+          "TypeScript, Tailwind CSS, shadcn/ui on Radix primitives",
+          "lucide-react icons, Inter via `next/font`, Calendly embed for demo booking"
+        ]
+      },
+      {
+        "category": "Product surface",
+        "items": [
+          "Email-ingestion pipeline as the primary user interface",
+          "DOCX parsing and tracked-changes generation for redlined output",
+          "LLM-driven clause analysis tuned to company-specific playbooks"
+        ]
+      }
+    ]
+  }
+}

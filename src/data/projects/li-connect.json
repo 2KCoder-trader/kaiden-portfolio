@@ -3,7 +3,6 @@
   "order": 3,
   "icon": "🔗",
   "name": "Connectify",
-  "tag": "Live",
   "shortDesc": "Growing a LinkedIn network manually is mind-numbing. Open the grow page, scroll, eyeball mutuals, click, repeat. The interesting part (deciding who's worth connecting with) gets buried under the click work, and nobody wants to spend their evening doing it.",
   "chips": ["Playwright", "Python", "Flask"],
 

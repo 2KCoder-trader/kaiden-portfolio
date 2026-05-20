@@ -3,7 +3,6 @@
   "order": 2,
   "icon": "☁️",
   "name": "AWS SAA-C03 Quiz",
-  "tag": "Live",
   "shortDesc": "Studying for the AWS Solutions Architect Associate is a slog. Hundreds of questions, tricky wording, and answer keys that tell you what's right but never why. After enough wrong answers you stop learning and start guessing.",
   "chips": ["AWS", "Claude API", "Cloudflare"],
 

@@ -84,6 +84,20 @@ function Demo({ demo }) {
         {demo.label && <div className="pp-section-label">{demo.label}</div>}
         {demo.title && <h2>{demo.title}</h2>}
         {demo.subtitle && <p className="pp-section-sub">{demo.subtitle}</p>}
+        {demo.video && (
+          <div className="pp-video">
+            {demo.video.youtubeId ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${demo.video.youtubeId}`}
+                title={demo.video.title || 'Demo video'}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : demo.video.src ? (
+              <video src={demo.video.src} controls playsInline preload="metadata" poster={demo.video.poster} />
+            ) : null}
+          </div>
+        )}
         {shots.length > 0 ? (
           <div
             className="pp-shots"
