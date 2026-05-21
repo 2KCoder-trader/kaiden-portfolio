@@ -53,9 +53,6 @@ function App() {
       <section className="hero">
         <h1>Data<span>Flex</span> Lab</h1>
         <p className="hero-author">By Kaiden Krenek</p>
-        <p>
-          Projects born from being too lazy to do the thing manually, or too bored not to build it.
-        </p>
       </section>
 
       <div className="stats">
