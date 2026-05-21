@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './ProjectPage.css'
 
@@ -173,6 +174,10 @@ function Tech({ tech }) {
 }
 
 export default function ProjectPage({ project }) {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [project?.slug])
+
   if (!project) return null
   const themeStyle = project.theme ? {
     '--accent': project.theme.accent,

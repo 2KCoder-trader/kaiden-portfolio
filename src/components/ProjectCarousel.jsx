@@ -118,6 +118,7 @@ export default function ProjectCarousel({ projects }) {
     if (e.button !== undefined && e.button !== 0) return
     dragRef.current = {
       active: true,
+      captured: false,
       pointerId: e.pointerId,
       startX: e.clientX,
       startRotation: rotationRef.current,
@@ -125,7 +126,6 @@ export default function ProjectCarousel({ projects }) {
     }
     targetRef.current = rotationRef.current
     lastInteractionRef.current = performance.now()
-    e.currentTarget.setPointerCapture?.(e.pointerId)
   }
 
   const onPointerMove = (e) => {
@@ -133,9 +133,15 @@ export default function ProjectCarousel({ projects }) {
     if (!d.active || d.pointerId !== e.pointerId) return
     const dx = e.clientX - d.startX
     d.totalDelta = Math.abs(dx)
-    rotationRef.current = d.startRotation + dx * DRAG_DEG_PER_PX
-    targetRef.current = rotationRef.current
-    applyTransform()
+    if (!d.captured && d.totalDelta > CLICK_THRESHOLD_PX) {
+      d.captured = true
+      e.currentTarget.setPointerCapture?.(e.pointerId)
+    }
+    if (d.captured) {
+      rotationRef.current = d.startRotation + dx * DRAG_DEG_PER_PX
+      targetRef.current = rotationRef.current
+      applyTransform()
+    }
     lastInteractionRef.current = performance.now()
   }
 
@@ -143,8 +149,10 @@ export default function ProjectCarousel({ projects }) {
     const d = dragRef.current
     if (!d.active) return
     d.active = false
-    e.currentTarget.releasePointerCapture?.(d.pointerId)
-    snapToNearest()
+    if (d.captured) {
+      e.currentTarget.releasePointerCapture?.(d.pointerId)
+      snapToNearest()
+    }
     lastInteractionRef.current = performance.now()
   }
 
