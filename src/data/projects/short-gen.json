@@ -1,0 +1,123 @@
+{
+  "slug": "short-gen",
+  "order": 9,
+  "icon": "🎬",
+  "name": "Short Gen",
+  "tag": "Personal",
+  "shortDesc": "AI Shorts factory. Pulls a trending prompt from r/WritingPrompts, has GPT-4o write a 10-scene storyboard, generates a DALL-E image and TTS narration per scene, stitches it into a vertical MP4, and uploads it to YouTube. Unattended content pipeline from one Reddit post to one Short.",
+  "chips": ["Python", "OpenAI", "MoviePy"],
+
+  "theme": {
+    "accent": "#f43f5e",
+    "accent2": "#f97316",
+    "accentGlow": "rgba(244, 63, 94, 0.15)",
+    "borderGlow": "rgba(244, 63, 94, 0.35)"
+  },
+
+  "nav": {
+    "githubUrl": "https://github.com/2KCoder-trader/short-gen"
+  },
+
+  "hero": {
+    "badge": "Short Gen",
+    "title": "Reddit prompt in,",
+    "titleHighlight": "YouTube Short out.",
+    "paragraphs": [
+      "Making AI-generated Shorts is a stack of small annoying steps. Pick a prompt, script it, draft scenes, generate art, record narration, edit, render vertical, write a title, upload, tag. Each step is doable, but doing all of them every day is the part that breaks.",
+      "Short Gen is a Python pipeline that automates every one of those steps. It pulls the top post of the day from r/WritingPrompts, has GPT-4o write a strict-JSON 10-scene storyboard, generates a DALL-E-3 image and OpenAI TTS narration for each scene, stitches the scenes into a 1080x1920 MP4 with MoviePy, and resumable-uploads the result to YouTube via the Data API. One command, one Short."
+    ],
+    "points": [
+      {
+        "icon": "🤖",
+        "title": "GPT-4o storyboards in strict JSON",
+        "desc": "`agent.py` prompts GPT-4o for a 10-scene storyboard with 15-20 word narrations and 0-2 characters per scene, returned as parseable JSON (no markdown). Separate calls generate reference images for characters and settings so the look stays consistent across scenes."
+      },
+      {
+        "icon": "🎨",
+        "title": "DALL-E-3 + TTS per scene",
+        "desc": "Each scene gets a cinematic Pixar-style 3D illustration from DALL-E-3 and narrated audio from OpenAI TTS using the `onyx` voice. Output lands as `image.png` and `audio.mp3` in a scene folder, ready for assembly."
+      },
+      {
+        "icon": "🎞️",
+        "title": "MoviePy stitches the vertical",
+        "desc": "`movie.py` center-crops each image to 1080x1920, binds it to the narration, exports `scene{N}.mp4`, then concatenates the scenes into a single `short.mp4`. No editor, no manual timeline."
+      },
+      {
+        "icon": "📤",
+        "title": "Resumable upload to YouTube",
+        "desc": "`youtube.py` handles the OAuth2 token refresh and uses the YouTube Data API v3 resumable-upload flow to publish the finished Short with title, tags (`#AI #Shorts #AIShorts`), and category 24."
+      }
+    ],
+    "ctas": [
+      { "label": "View on GitHub", "href": "https://github.com/2KCoder-trader/short-gen", "primary": true }
+    ]
+  },
+
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From prompt to publish",
+    "subtitle": "One run, one Short.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Pull a prompt",
+        "desc": "`reddit.py` uses `praw` to grab the top post of the day from r/WritingPrompts. The post title becomes the seed for the story."
+      },
+      {
+        "num": "02",
+        "title": "Plan the story",
+        "desc": "GPT-4o turns the prompt into a 10-scene storyboard JSON: arc from setup to resolution, scene narrations capped at 15-20 words, character and setting refs for visual consistency. Saved to `story/storyboard.json`."
+      },
+      {
+        "num": "03",
+        "title": "Generate art and narration",
+        "desc": "For each scene the agent fires a DALL-E-3 image request and a TTS request in sequence. Output goes to `scenes/scene{N}/image.png` and `scenes/scene{N}/audio.mp3`."
+      },
+      {
+        "num": "04",
+        "title": "Render and upload",
+        "desc": "MoviePy builds each `scene{N}.mp4`, concatenates into `short.mp4`, and `youtube.py` runs the OAuth resumable upload to publish public with the AI Shorts tags applied."
+      }
+    ]
+  },
+
+  "tech": {
+    "label": "Under the hood",
+    "title": "How it's built",
+    "subtitle": "A handful of small Python files, each owning one step of the pipeline.",
+    "categories": [
+      {
+        "category": "Orchestration",
+        "items": [
+          "`workflow.py`, the entry point that wires the steps together",
+          "`filesystem.py`, builds ordered scene/clip path lists so each stage knows what to read and write",
+          "`.env` loaded via `python-dotenv` for `OPENAI_API_KEY`, `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`"
+        ]
+      },
+      {
+        "category": "AI calls",
+        "items": [
+          "OpenAI SDK with GPT-4o for storyboard generation, strict JSON output (no markdown wrappers)",
+          "DALL-E-3 for scene art plus separate character/setting reference images for visual consistency",
+          "OpenAI TTS with the `onyx` voice for narration"
+        ]
+      },
+      {
+        "category": "Source + render + publish",
+        "items": [
+          "`praw` for Reddit (top post of day from r/WritingPrompts)",
+          "`moviepy` + `PIL` for center-crop to 1080x1920, audio binding, per-scene render, concatenation",
+          "`google-api-python-client` OAuth2 flow for YouTube Data API v3 resumable uploads, category 24, public, tagged `#AI #Shorts #AIShorts`"
+        ]
+      },
+      {
+        "category": "Planned extensions",
+        "items": [
+          "Captions and Ken Burns motion on still images (README backlog)",
+          "Veo2 for true motion clips per scene",
+          "Agent verification loops to retry scenes that fail visual or narrative checks"
+        ]
+      }
+    ]
+  }
+}

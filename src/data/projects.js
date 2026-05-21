@@ -1,3 +1,4 @@
+// auto-discovers project manifests in ./projects/*.json (skips _template)
 const modules = import.meta.glob('./projects/[!_]*.json', { eager: true })
 
 const projects = Object.values(modules)
